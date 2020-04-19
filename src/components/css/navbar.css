@@ -1,0 +1,28 @@
+.navbar-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.logobar-container {
+	display: flex;
+	justify-content: center;
+	width: 200px;
+}
+
+.button-container {
+	height: 30px;
+	position: relative;
+}
+
+.button-container button{
+	height: 30px;
+	background-color: coral;
+	border: none;
+	border-radius: 3px;
+	margin-left: 4px;
+}
+
+.button-container button:hover {
+	cursor: pointer;
+}

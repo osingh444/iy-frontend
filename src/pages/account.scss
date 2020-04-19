@@ -1,0 +1,25 @@
+@import '../styles/_account_class.scss';
+
+.login-container {
+	@include account-container
+	width: 320px;
+	height: 320px;
+}
+
+.register-container {
+	@include account-container
+	width: 320px;
+	height: 410px;
+}
+
+.reqreset-container {
+	@include account-container
+	width: 320px;
+	height: 190px;
+}
+
+.reset-container {
+	@include account-container
+	width: 320px;
+	height: 285px;
+}
