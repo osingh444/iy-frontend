@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './account.scss'
 import { Link } from 'react-router-dom'
 import Popup from '../components/popup'
-import { isValidEmail } from '../utils/email.js'
+import { isValidEmail } from '../utils'
 
 const ReqReset = (location) => {
 	const [email, setEmail] = useState('')

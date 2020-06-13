@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Popup from '../components/popup'
-import { isValidIG } from '../utils/checker.js'
+import { isValidIG } from '../utils'
 import '../components/css/vendor.css'
 
 const AddVendor = props => {
@@ -25,13 +25,14 @@ const AddVendor = props => {
 		setIsSubmitting(true)
 		fetch(process.env.REACT_APP_API_BASE + 'addvendor', {
 			method: 'POST',
-			body: JSON.stringify({name: vendorName}),
+			body: JSON.stringify({IGName: vendorName}),
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
 		.then(res => res.json())
 		.then(data => {
+			console.log(data)
 			if(data.Add) {
 				setPopup(<Popup title={'Success'} body={'Vendor added'}/>)
 			} else {

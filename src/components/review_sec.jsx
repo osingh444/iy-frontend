@@ -6,11 +6,14 @@ const ReviewSection = props => {
     	<React.Fragment>
       		{props.reviews.map((review) =>
         		<Review
-          			key={review.reviewerEmail + review.date}
-          			body={review.reviewText}
-          			user={review.reviewerName}
-					numStars={review.numStars}
-					date={review.date}
+          			key={review.ReviewID}
+								id={review.ReviewID}
+          			body={review.ReviewText}
+          			user={review.Reviewer}
+								numStars={review.NumStars}
+								date={review.CreatedAt}
+								vendor={props.vendor}
+								reviewerID={review.ReviewerID}
           		/>)
       		}
     	</React.Fragment>

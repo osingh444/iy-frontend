@@ -51,6 +51,18 @@
 	border-bottom: 1px solid grey;
 }
 
+.review-footer {
+	font-size: 10px;
+}
+
+.review-footer span {
+	cursor: pointer;
+}
+
+.review-footer span:hover {
+	text-decoration: underline;
+}
+
 .review-date {
 	float: right;
 	font-size: 12px;

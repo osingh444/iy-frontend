@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Popup from '../components/popup'
-import { isValidEmail } from '../utils/email.js'
+import { isValidEmail } from '../utils'
 import './account.scss'
 
 const Register = () => {
@@ -50,7 +50,7 @@ const Register = () => {
 			  setIsSubmitting(true)
       	fetch(process.env.REACT_APP_API_BASE + 'register', {
         	method: 'POST',
-        	body: JSON.stringify({displayName: displayName, email: email, password: password}),
+        	body: JSON.stringify({DisplayName: displayName, Email: email, Password: password}),
         	headers: {
         		'Content-Type': 'application/json'
       		}

@@ -12,11 +12,12 @@ const Vendor = ({match, location}) => {
 	const [reviews, setReviews] = useState([])
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_API_BASE + 'vendor/' + match.params.vendorID)
+		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID))
 		.then(res => res.json())
 		.then(data => {
+			console.log(data)
 			//case where the vendor does not exist, want to display vendor not exist page
-			if(!data.exists) {
+			if(data.status !== 200) {
 				setExists(false)
 			}
 			let newrevs = []
@@ -48,7 +49,7 @@ const Vendor = ({match, location}) => {
 	      			<button> Save </button>
 				</div>
 	      		<div className='review-section-container'>
-	        		<ReviewSection reviews={reviews}/>
+	        		<ReviewSection reviews={reviews} vendor={String(match.params.vendorID)}/>
 	      		</div>
 			</div>
 		)

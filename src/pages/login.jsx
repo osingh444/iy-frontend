@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import './account.scss'
-import { isValidEmail } from '../utils/email.js'
-import { getCookie } from '../utils/cookieutils.js'
+import { getCookie, isValidEmail } from '../utils'
 
 const Login = () => {
 	const [email, setEmail] = useState('')
@@ -44,7 +43,7 @@ const Login = () => {
 		setIsSubmitting(true)
 		fetch(process.env.REACT_APP_API_BASE + 'login', {
 			method: 'POST',
-			body: JSON.stringify({email: email, password: password}),
+			body: JSON.stringify({Email: email, Password: password}),
 			credentials: 'include',
 			headers: {
         	'Content-Type': 'application/json'

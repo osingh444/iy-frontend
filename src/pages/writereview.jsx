@@ -8,6 +8,16 @@ const WriteReview = (props) => {
 	const [tempStars, setTempStars] = useState(0)
 	const [review, setReview] = useState('')
 
+	console.log(props.location.state, "we at review page")
+	useEffect(() => {
+		if(props.location.state && props.location.state.text) {
+			setReview(props.location.state.text)
+		}
+		if(props.location.state && props.location.state.numStars) {
+			setNumStars(props.location.state.numStars)
+		}
+	}, [])
+
 	const handleChange = (e) => {
     	setReview(e.target.value)
   	}
@@ -19,10 +29,10 @@ const WriteReview = (props) => {
 			return
 		}
 
-		const parsed = queryString.parse(props.location.search)
-		fetch(process.env.REACT_APP_API_BASE + 'addreview', {
+	const parsed = queryString.parse(props.location.search)
+		fetch(process.env.REACT_APP_API_BASE + 'createreview', {
 			method: 'POST',
-			body: JSON.stringify({numStars: numStars, review: review, vendor: parsed.v}),
+			body: JSON.stringify({numStars: numStars, reviewText: review, vendorName: parsed.v}),
 			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json'
@@ -31,11 +41,9 @@ const WriteReview = (props) => {
 		.then(res => res.json())
 		.then(data => console.log(data))
 		.catch(err => console.log(err))
-  	}
+  }
 
 	const validate = () => {
-
-
 
 		return true
 	}

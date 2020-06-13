@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Search from './search'
 import { Link, Redirect } from 'react-router-dom'
-import { getCookie } from '../utils/cookieutils.js'
+import { getCookie } from '../utils'
 import './css/navbar.css'
 
 const NavBar = props => {
