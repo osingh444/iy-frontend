@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useContext } from "react"
 import PopupContext from '../contexts/popupcontext'
-import './css/popup.css'
+import './css/popup.scss'
 
 function useOutsideAlerter(ref, setShow) {
 	function handleClickOutside(event) {

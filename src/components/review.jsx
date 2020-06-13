@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Redirect} from 'react-router-dom'
 import StaticRating from './rating_static'
 import {getCookie} from '../utils'
-import './css/vendor.css'
+import './css/vendor.scss'
 
 const Review = props => {
 	const [isEdit, setIsEdit] = useState(false)
@@ -39,6 +39,12 @@ const Review = props => {
 		</div>
 	)
 
+	let report = (
+		<div className='review-footer-report'>
+			<span onClick={() => handleDelete()}> Report </span>
+		</div>
+	)
+
 	let content = (
     <div className='review'>
 	   	<React.Fragment>
@@ -53,7 +59,7 @@ const Review = props => {
       	<p className='review-text'> {props.body} </p>
     	</React.Fragment>
     	<React.Fragment>
-				{props.reviewerID === getCookie('id')?footer:null}
+				{props.reviewerID === getCookie('id')?footer:report}
 			</React.Fragment>
 		</div>
 	)

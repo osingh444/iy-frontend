@@ -8,7 +8,6 @@ const WriteReview = (props) => {
 	const [tempStars, setTempStars] = useState(0)
 	const [review, setReview] = useState('')
 
-	console.log(props.location.state, "we at review page")
 	useEffect(() => {
 		if(props.location.state && props.location.state.text) {
 			setReview(props.location.state.text)
@@ -29,7 +28,7 @@ const WriteReview = (props) => {
 			return
 		}
 
-	const parsed = queryString.parse(props.location.search)
+		const parsed = queryString.parse(props.location.search)
 		fetch(process.env.REACT_APP_API_BASE + 'createreview', {
 			method: 'POST',
 			body: JSON.stringify({numStars: numStars, reviewText: review, vendorName: parsed.v}),

@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/writereview.css'
+import './css/writereview.scss'
 
 const StaticRating = props => {
 

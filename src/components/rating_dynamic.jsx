@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import RatingContext from '../contexts/ratingcontext'
-import './css/writereview.css'
+import './css/writereview.scss'
 
 const DynamicRating = props => {
 

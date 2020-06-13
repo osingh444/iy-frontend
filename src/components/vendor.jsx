@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReviewSection from './review_sec'
 import VendorSummary from './vendorsummary'
 import { Link } from 'react-router-dom'
-import './css/vendor.css'
+import './css/vendor.scss'
 
 const Vendor = ({match, location}) => {
 

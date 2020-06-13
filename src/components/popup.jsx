@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import OutsideAlerter from './popup_inner'
 import PopupContext from '../contexts/popupcontext'
-import './css/popup.css'
+import './css/popup.scss'
 
 const Popup = (props) => {
 	let [show, setShow] = useState(true)

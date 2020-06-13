@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Popup from '../components/popup'
 import { isValidIG } from '../utils'
-import '../components/css/vendor.css'
+import '../components/css/vendor.scss'
 
 const AddVendor = props => {
 
