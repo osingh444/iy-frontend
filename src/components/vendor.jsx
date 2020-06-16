@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ReviewSection from './review_sec'
 import VendorSummary from './vendorsummary'
 import { Link } from 'react-router-dom'
+import Popup from 'reactjs-popup'
+import reportReasons from '../data/report_reasons.json'
 import './css/vendor.scss'
 
 const Vendor = ({match, location}) => {
@@ -10,6 +12,8 @@ const Vendor = ({match, location}) => {
 	const [isLoaded, setIsLoaded] = useState(false)
 	const [exists, setExists] = useState(true)
 	const [reviews, setReviews] = useState([])
+	const [showPopup, setShowPopup] = useState(false)
+	const [reason, setReason] = useState(null)
 
 	useEffect(() => {
 		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID))
@@ -30,12 +34,38 @@ const Vendor = ({match, location}) => {
 		.catch(err => console.log(err))
 	}, [])
 
+	const sendReport = (e) => {
+		e.preventDefault()
+		console.log(reason)
+	}
+
 	let revlink = "/writereview?v=" + match.params.vendorID
 
 	let content
 
 	if(isLoaded) {
 		content = (
+			<React.Fragment>
+				<Popup
+					open={showPopup}
+					onClose={() => setShowPopup(false)}>
+					<div className='popup'>
+						<label htmlFor='reason'> Select reason for report </label>
+						<select
+							id='reason'
+							onChange={(e) => setReason(e.target.value)}>
+							{reportReasons.reasons.map(item => (
+								<option
+									key={item}
+									value={item}>
+									{item}
+								</option>
+							))}
+						</select>
+					  <p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+						<button onClick={(e) => sendReport(e)}> Submit </button>
+					</div>
+				</Popup>
 	    	<div className='vendor-container'>
 				<div className='summary-container'>
 	        		<VendorSummary vname={match.params.vendorID}/>
@@ -44,14 +74,18 @@ const Vendor = ({match, location}) => {
 					<Link to={revlink}>
 						<button> Write a Review </button>
 					</Link>
-	          		<button> Add Photo </button>
-	      			<button> Share </button>
-	      			<button> Save </button>
+	          <button> Add Photo </button>
+	      		<button> Share </button>
+	      		<button> Save </button>
 				</div>
 	      		<div className='review-section-container'>
-	        		<ReviewSection reviews={reviews} vendor={String(match.params.vendorID)}/>
+	        		<ReviewSection
+								reviews={reviews}
+								vendor={String(match.params.vendorID)}
+								setShowPopup={setShowPopup}/>
 	      		</div>
-			</div>
+				</div>
+			</React.Fragment>
 		)
 	} else if(!isLoaded) {
 		content = (

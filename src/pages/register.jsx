@@ -57,10 +57,11 @@ const Register = () => {
       	})
       	.then(res => res.json())
       	.then(data => {
-        	if(data.success) {
+					console.log(data)
+        	if(data.status === 201) {
 					  setPopup(<Popup body={'Account successfully created, check email to confirm'}/>)
 				  } else {
-					  setPopup(<Popup body={data.msg}/>)
+					  setPopup(<Popup body={data.message}/>)
 				  }
       		})
       	.catch(err => console.log(err))

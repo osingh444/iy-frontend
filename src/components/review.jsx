@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Redirect} from 'react-router-dom'
 import StaticRating from './rating_static'
+import Popup from './popup'
 import {getCookie} from '../utils'
 import './css/vendor.scss'
 
@@ -19,13 +20,16 @@ const Review = props => {
 		.then(data => console.log(data))
 		.catch(err => console.log(err))
 	}
-	console.log(props.body, props.numStars)
+
+	const handleReport = () => {
+		props.setShowPopup(true)
+	}
+
 	if(isEdit) {
 		return <Redirect
 			to={{
 				pathname: '/writereview',
 				search: '?v=' + String(props.vendor),
-				//pathname: '/login',
 				state: {text: props.body, numStars: props.numStars}
 				}}
 			push={true}
@@ -41,7 +45,7 @@ const Review = props => {
 
 	let report = (
 		<div className='review-footer-report'>
-			<span onClick={() => handleDelete()}> Report </span>
+			<span onClick={() => handleReport()}> Report </span>
 		</div>
 	)
 

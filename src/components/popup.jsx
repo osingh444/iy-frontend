@@ -15,8 +15,8 @@ const Popup = (props) => {
 
 	let innercontent = (
 		<React.Fragment>
-			<h1 className='popup-title'> {props.title} </h1>
-			<p className='popup-body'> {props.body} </p>
+			{props.title}
+			{props.body}
 			<button name='inner' onClick={innerWapper}> Okay </button>
 		</React.Fragment>
 	)

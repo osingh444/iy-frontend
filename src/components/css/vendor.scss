@@ -51,16 +51,27 @@
 	border-bottom: 1px solid grey;
 }
 
-.review-footer {
+@mixin review-footer {
 	font-size: 10px;
 
 	span {
 		cursor: pointer;
+		color: grey;
 	}
 
 	span:hover {
 		text-decoration: underline;
+		color: black;
 	}
+}
+
+.review-footer {
+	@include review-footer;
+}
+
+.review-footer-report {
+	@include review-footer;
+	text-align: right;
 }
 
 .review-date {
