@@ -23,6 +23,8 @@ const Review = props => {
 
 	const handleReport = () => {
 		props.setShowPopup(true)
+		props.setReportID(String(props.id))
+		props.setReviewerID(String(props.reviewerID))
 	}
 
 	if(isEdit) {

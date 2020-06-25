@@ -14,6 +14,8 @@ const Vendor = ({match, location}) => {
 	const [reviews, setReviews] = useState([])
 	const [showPopup, setShowPopup] = useState(false)
 	const [reason, setReason] = useState(null)
+	const [reportID, setReportID] = useState(null)
+	const [reviewerID, setReviewerID] = useState(null)
 
 	useEffect(() => {
 		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID))
@@ -36,7 +38,18 @@ const Vendor = ({match, location}) => {
 
 	const sendReport = (e) => {
 		e.preventDefault()
-		console.log(reason)
+
+		fetch(process.env.REACT_APP_API_BASE + 'addreport', {
+			method: 'POST',
+			credentials: 'include',
+			body: JSON.stringify({ReviewID: reportID, ReviewerID: reviewerID, VendorName: String(match.params.vendorID)} ),
+			headers: {
+        	'Content-Type': 'application/json'
+      		}
+		})
+		.then(res => res.json())
+		.then(data => console.log(data))
+		.catch(err => console.log(err))
 	}
 
 	let revlink = "/writereview?v=" + match.params.vendorID
@@ -82,7 +95,9 @@ const Vendor = ({match, location}) => {
 	        		<ReviewSection
 								reviews={reviews}
 								vendor={String(match.params.vendorID)}
-								setShowPopup={setShowPopup}/>
+								setShowPopup={setShowPopup}
+								setReportID={setReportID}
+								setReviewerID={setReviewerID}/>
 	      		</div>
 				</div>
 			</React.Fragment>

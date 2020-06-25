@@ -15,6 +15,8 @@ const ReviewSection = props => {
 								vendor={props.vendor}
 								reviewerID={review.ReviewerID}
 								setShowPopup={props.setShowPopup}
+								setReportID={props.setReportID}
+								setReviewerID={props.setReviewerID}
           		/>)
       		}
     	</React.Fragment>

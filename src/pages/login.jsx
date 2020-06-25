@@ -14,8 +14,7 @@ const Login = () => {
 	const [shouldRedirect, setShouldRedirect] = useState(false)
 
 	useEffect(() => {
-		let token_set = getCookie('token_set')
-		if(token_set === 'true') {
+		if(getCookie('token_set') === 'true') {
 			setShouldRedirect(true)
 		}
 	}, [])
@@ -51,7 +50,7 @@ const Login = () => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			if(data.success) {
+			if(data.status === 200) {
 				setShouldRedirect(true)
 			}
 		})
