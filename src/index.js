@@ -5,7 +5,7 @@ import './styles/globals.scss'
 import App from './App';
 import Product from './components/product'
 import WriteReview from './pages/writereview'
-import Vendor from './components/vendor'
+import Vendor from './pages/vendor'
 import Login from './pages/login'
 import Register from './pages/register'
 import NavBar from './components/navbar'

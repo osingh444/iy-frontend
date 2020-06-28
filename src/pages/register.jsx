@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Popup from '../components/popup'
 import { isValidEmail } from '../utils'
+import { containsBadWords } from '../utils/filter'
 import './account.scss'
 
 const Register = () => {
@@ -114,6 +115,12 @@ const Register = () => {
 
 		if(displayName.replace(/\s+/g, '') === '') {
 			setDispErr(' - Display name cannot be empty')
+			setDispClass('row-err')
+			submit = false
+		}
+
+		if(containsBadWords(displayName)) {
+			setDispErr(' - inappropriate display name')
 			setDispClass('row-err')
 			submit = false
 		}

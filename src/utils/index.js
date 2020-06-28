@@ -62,5 +62,5 @@ export function isValidIG(str) {
 }
 
 export function unixTimeToMMDDYYYY() {
-	
+
 }

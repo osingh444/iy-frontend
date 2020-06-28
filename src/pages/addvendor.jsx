@@ -11,35 +11,55 @@ const AddVendor = props => {
 	const [err, setErr] = useState('')
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [popup, setPopup] = useState(null)
-
-	const handleChange = (e) => {
-    	setVendorName(e.target.value)
-	}
+	const [body, setBody] = useState(null)
 
 	const handleSubmit = (e) => {
 		setPopup(null)
-    	e.preventDefault()
-		if(!validate()) {
-			return
-		}
 		setIsSubmitting(true)
-		fetch(process.env.REACT_APP_API_BASE + 'addvendor', {
-			method: 'POST',
-			body: JSON.stringify({IGName: vendorName}),
-			headers: {
-				'Content-Type': 'application/json'
+    e.preventDefault()
+
+		let igbase = "https://www.instagram.com/"
+
+		fetch(igbase + vendorName)
+		.then(res => {
+			if(res.status !== 200) {
+				if(res.status === 404) {
+					setErr(' - no account found')
+					setIpClass('row-err')
+					setBody('f')
+				}
+				throw 'finish'
 			}
+			return res.text()
 		})
-		.then(res => res.json())
 		.then(data => {
-			console.log(data)
-			if(data.Add) {
-				setPopup(<Popup title={'Success'} body={'Vendor added'}/>)
-			} else {
-				setPopup(<Popup body={data.Msg}/>)
+			setBody(data)
+			if(!validate()) {
+				setIsSubmitting(false)
+				throw 'finish'
 			}
+
+			fetch(process.env.REACT_APP_API_BASE + 'addvendor', {
+				method: 'POST',
+				body: JSON.stringify({IGName: vendorName, Body: body}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data)
+				if(data.Add) {
+					setPopup(<Popup title={'Success'} body={'Vendor added'}/>)
+				} else {
+					setPopup(<Popup body={data.Msg}/>)
+				}
+			})
+			.catch(err => {console.log(err)})
 		})
 		.catch(err => console.log(err))
+
+
 		setIsSubmitting(false)
 	}
 
@@ -47,14 +67,14 @@ const AddVendor = props => {
 		setErr('')
 		setIpClass('row')
 
-		if(vendorName.length > 30) {
-			setErr(' - length must be less than 30 characters')
+		if(!isValidIG(vendorName)) {
+			setErr(' - invalid instagram username')
 			setIpClass('row-err')
 			return false
 		}
-
-		if(!isValidIG(vendorName)) {
-			setErr(' - invalid instagram username')
+		
+		if(body === null) {
+			setErr(' - connection error')
 			setIpClass('row-err')
 			return false
 		}
@@ -72,7 +92,7 @@ const AddVendor = props => {
     			<input
 					type='text'
 					className={ipclass}
-					onChange={handleChange}/>
+					onChange={(e) => setVendorName(e.target.value)}/>
       			<button disabled={isSubmitting}> Add Vendor </button>
 			</form>
     	</div>

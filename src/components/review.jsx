@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import StaticRating from './rating_static'
-import Popup from './popup'
 import {getCookie} from '../utils'
 import './css/vendor.scss'
 

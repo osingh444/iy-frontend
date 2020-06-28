@@ -48,10 +48,21 @@ const Login = () => {
         	'Content-Type': 'application/json'
       		}
 		})
-		.then(res => res.json())
-		.then(data => {
-			if(data.status === 200) {
+		.then(res => {
+			if(res.status === 200) {
 				setShouldRedirect(true)
+			} else if(res.status === 401) {
+				setemailErr(' - username or password incorrect')
+				setEmailClass('row-err')
+				setPasswordClass('row-err')
+			} else if(res.status === 404) {
+				setemailErr(' - user does not exist')
+				setEmailClass('row-err')
+				setPasswordClass('row-err')
+			}else {
+				setemailErr(' - server error')
+				setEmailClass('row-err')
+				setPasswordClass('row-err')
 			}
 		})
 		.catch(err => console.log(err))

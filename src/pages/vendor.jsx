@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import ReviewSection from './review_sec'
-import VendorSummary from './vendorsummary'
+import ReviewSection from '../components/review_sec'
+import VendorSummary from '../components/vendorsummary'
 import { Link } from 'react-router-dom'
 import Popup from 'reactjs-popup'
 import reportReasons from '../data/report_reasons.json'
-import './css/vendor.scss'
+import '../components/css/vendor.scss'
 
 const Vendor = ({match, location}) => {
 

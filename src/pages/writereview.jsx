@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import DynamicRating from '../components/rating_dynamic'
 import RatingContext from '../contexts/ratingcontext'
+import Popup from 'reactjs-popup'
+import { containsBadWords } from '../utils/filter'
 const queryString = require('query-string')
 
 const WriteReview = (props) => {
 	const [numStars, setNumStars] = useState(null)
 	const [tempStars, setTempStars] = useState(0)
 	const [review, setReview] = useState('')
+	const [showPopup, setShowPopup] = useState(false)
+	const [popupMessage, setPopupMessage] = useState('')
 
 	useEffect(() => {
 		if(props.location.state && props.location.state.text) {
@@ -43,11 +47,24 @@ const WriteReview = (props) => {
   }
 
 	const validate = () => {
-
+		if(containsBadWords(review)) {
+			setShowPopup(true)
+			setPopupMessage('Review contains inappropriate language, please modify your review')
+			return false
+		}
 		return true
 	}
 
 	let content = (
+		<React.Fragment>
+			<Popup
+				open={showPopup}
+				onClose={() => setShowPopup(false)}>
+				<div className='popup'>
+					<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+					<p> {popupMessage} </p>
+				</div>
+			</Popup>
     	<div>
       		<React.Fragment>
         		<RatingContext.Provider value={{ numStars, setNumStars, tempStars, setTempStars }}>
@@ -68,7 +85,8 @@ const WriteReview = (props) => {
       		</React.Fragment>
       			<br/>
       		<button className='post_button' onClick={handleSubmit}> Post Review </button>
-		</div>
+			</div>
+		</React.Fragment>
 	)
 
 	return content
