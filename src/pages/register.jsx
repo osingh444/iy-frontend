@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Popup from '../components/popup'
+import Popup from 'reactjs-popup'
 import { isValidEmail } from '../utils'
 import { containsBadWords } from '../utils/filter'
 import './account.scss'
@@ -19,7 +19,8 @@ const Register = () => {
 	const [cpassErr, setcPassErr] = useState('')
 	const [cpassClass, setCpassClass] = useState('row')
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const [popup, setPopup] = useState(null)
+	const [showPopup, setShowPopup] = useState(false)
+	const [popupMessage, setPopupMessage] = useState('')
 
 	const handleChange = (e) => {
     switch(e.target.name) {
@@ -43,7 +44,6 @@ const Register = () => {
 	}
 
 	const handleSubmit = (e) => {
-		setPopup(null)
     	e.preventDefault()
     	if(!validate()) {
       		return
@@ -59,11 +59,8 @@ const Register = () => {
       	.then(res => res.json())
       	.then(data => {
 					console.log(data)
-        	if(data.status === 201) {
-					  setPopup(<Popup body={'Account successfully created, check email to confirm'}/>)
-				  } else {
-					  setPopup(<Popup body={data.message}/>)
-				  }
+					setShowPopup(true)
+					setPopupMessage(data.message)
       		})
       	.catch(err => console.log(err))
 			setIsSubmitting(false)
@@ -146,6 +143,14 @@ const Register = () => {
 
 	let content = (
 		<React.Fragment>
+			<Popup
+				open={showPopup}
+				onClose={() => setShowPopup(false)}>
+				<div className='popup'>
+					<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+					<p> {popupMessage} </p>
+				</div>
+			</Popup>
   		<div className='register-container'>
 			<p name='title'> Register </p>
     		<form
@@ -185,7 +190,6 @@ const Register = () => {
 				  </Link>
     		</form>
   		</div>
-		{popup}
 		</React.Fragment>
 	)
 	return content

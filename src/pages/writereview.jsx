@@ -66,25 +66,25 @@ const WriteReview = (props) => {
 				</div>
 			</Popup>
     	<div>
-      		<React.Fragment>
-        		<RatingContext.Provider value={{ numStars, setNumStars, tempStars, setTempStars }}>
-          			<DynamicRating/>
-        		</RatingContext.Provider>
-      		</React.Fragment>
-      		<React.Fragment>
-        		<textarea
-          			name='review'
-          			className='review_box'
-          			rows='15'
-          			autoComplete='off'
-          			placeholder='your review helps others make purchase decisions'
-          			value={review}
-          			onChange={handleChange}
-          			style={{resize: 'none', width: '80%', height: '5%'}}>
-        		</textarea>
-      		</React.Fragment>
-      			<br/>
-      		<button className='post_button' onClick={handleSubmit}> Post Review </button>
+      	<React.Fragment>
+        	<RatingContext.Provider value={{ numStars, setNumStars, tempStars, setTempStars }}>
+          	<DynamicRating/>
+        	</RatingContext.Provider>
+      	</React.Fragment>
+      	<React.Fragment>
+        	<textarea
+          	name='review'
+          	className='review_box'
+        		rows='15'
+        		autoComplete='off'
+        		placeholder='your review helps others make purchase decisions'
+        		value={review}
+        		onChange={handleChange}
+        		style={{resize: 'none', width: '80%', height: '5%'}}>
+        	</textarea>
+      	</React.Fragment>
+    		<br/>
+      	<button className='post_button' onClick={handleSubmit}> Post Review </button>
 			</div>
 		</React.Fragment>
 	)

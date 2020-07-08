@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Popup from '../components/popup'
+import Popup from 'reactjs-popup'
 import { isValidIG } from '../utils'
 import '../components/css/vendor.scss'
 
@@ -10,14 +10,17 @@ const AddVendor = props => {
 	const [ipclass, setIpClass] = useState('row')
 	const [err, setErr] = useState('')
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const [popup, setPopup] = useState(null)
 	const [body, setBody] = useState(null)
+	const [showPopup, setShowPopup] = useState(false)
+	const [popupMessage, setPopupMessage] = useState(null)
 
 	const handleSubmit = (e) => {
-		setPopup(null)
 		setIsSubmitting(true)
     e.preventDefault()
-
+		if(!validate()) {
+			setIsSubmitting(false)
+			return
+		}
 		let igbase = "https://www.instagram.com/"
 
 		fetch(igbase + vendorName)
@@ -34,14 +37,15 @@ const AddVendor = props => {
 		})
 		.then(data => {
 			setBody(data)
-			if(!validate()) {
-				setIsSubmitting(false)
-				throw 'finish'
+			if(body === null) {
+				setErr(' - connection error')
+				setIpClass('row-err')
+				return
 			}
 
 			fetch(process.env.REACT_APP_API_BASE + 'addvendor', {
 				method: 'POST',
-				body: JSON.stringify({IGName: vendorName, Body: body}),
+				body: JSON.stringify({IGName: vendorName, Page: body}),
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -49,16 +53,12 @@ const AddVendor = props => {
 			.then(res => res.json())
 			.then(data => {
 				console.log(data)
-				if(data.Add) {
-					setPopup(<Popup title={'Success'} body={'Vendor added'}/>)
-				} else {
-					setPopup(<Popup body={data.Msg}/>)
-				}
+				setShowPopup(true)
+				setPopupMessage(data.message)
 			})
 			.catch(err => {console.log(err)})
 		})
 		.catch(err => console.log(err))
-
 
 		setIsSubmitting(false)
 	}
@@ -72,17 +72,20 @@ const AddVendor = props => {
 			setIpClass('row-err')
 			return false
 		}
-		
-		if(body === null) {
-			setErr(' - connection error')
-			setIpClass('row-err')
-			return false
-		}
+
 		return true
 	}
 
 	let content = (
 		<React.Fragment>
+			<Popup
+				open={showPopup}
+				onClose={() => setShowPopup(false)}>
+				<div className='popup'>
+					<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+					<p> {popupMessage} </p>
+				</div>
+			</Popup>
     	<div className='addvendor-container'>
 			<p name='title'> Add Vendor </p>
 				<form
@@ -96,7 +99,6 @@ const AddVendor = props => {
       			<button disabled={isSubmitting}> Add Vendor </button>
 			</form>
     	</div>
-		{popup}
 		</React.Fragment>
 	)
 

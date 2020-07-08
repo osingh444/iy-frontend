@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './account.scss'
 import { Link } from 'react-router-dom'
-import Popup from '../components/popup'
+import Popup from 'reactjs-popup'
 import { isValidEmail } from '../utils'
 
 const ReqReset = (location) => {
@@ -10,10 +10,10 @@ const ReqReset = (location) => {
 	const [displayEmailErr, setDisplayEmailErr] = useState(false)
 	const [emailClass, setEmailClass] = useState('row')
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const [popup, setPopup] = useState(null)
+	const [showPopup, setShowPopup] = useState(false)
+	const [popupMessage, setPopupMessage] = useState('')
 
 	const handleSubmit = e => {
-		setPopup(null)
 		e.preventDefault()
 		if(!validate()) {
 			return
@@ -29,11 +29,8 @@ const ReqReset = (location) => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			if(data.success) {
-				setPopup(<Popup title={'Success'} body={'Password reset email sent'}/>)
-			} else {
-				setPopup(<Popup title={'Failure'} body={data.msg}/>)
-			}
+			setShowPopup(true)
+			setPopupMessage(data.message)
 		})
 		.catch(err => console.log(err))
 		setIsSubmitting(false)
@@ -69,6 +66,14 @@ const ReqReset = (location) => {
 
 	let content = (
 		<React.Fragment>
+		<Popup
+			open={showPopup}
+			onClose={() => setShowPopup(false)}>
+			<div className='popup'>
+				<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+				<p> {popupMessage} </p>
+			</div>
+		</Popup>
 		<div className='reqreset-container'>
 			<p name='title'> Password Recovery </p>
 			<form
@@ -86,7 +91,6 @@ const ReqReset = (location) => {
 				</Link>
 			</form>
 		</div>
-		{popup}
 		</React.Fragment>
 	)
 	return content
