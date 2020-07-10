@@ -64,9 +64,12 @@ const Login = () => {
 				setEmailClass('row-err')
 				setPasswordClass('row-err')
 			}
+			setIsSubmitting(false)
 		})
-		.catch(err => console.log(err))
-		setIsSubmitting(false)
+		.catch(err => {
+			console.log(err)
+			setIsSubmitting(false)
+		})
 	}
 
 	const validate = () => {

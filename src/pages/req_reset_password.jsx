@@ -31,9 +31,12 @@ const ReqReset = (location) => {
 		.then(data => {
 			setShowPopup(true)
 			setPopupMessage(data.message)
+			setIsSubmitting(false)
 		})
-		.catch(err => console.log(err))
-		setIsSubmitting(false)
+		.catch(err => {
+			console.log(err)
+			setIsSubmitting(false)
+		})
 	}
 
 	const handleChange = e => {

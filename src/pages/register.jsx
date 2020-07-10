@@ -61,9 +61,12 @@ const Register = () => {
 					console.log(data)
 					setShowPopup(true)
 					setPopupMessage(data.message)
+					setIsSubmitting(false)
       		})
-      	.catch(err => console.log(err))
-			setIsSubmitting(false)
+      	.catch(err => {
+					console.log(err)
+					setIsSubmitting(false)
+				})
     	}
 	}
 
@@ -142,55 +145,57 @@ const Register = () => {
 	}
 
 	let content = (
-		<React.Fragment>
-			<Popup
-				open={showPopup}
-				onClose={() => setShowPopup(false)}>
-				<div className='popup'>
-					<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
-					<p> {popupMessage} </p>
-				</div>
-			</Popup>
-  		<div className='register-container'>
-			<p name='title'> Register </p>
-    		<form
-      		onSubmit={handleSubmit}>
-				  <span className='label'> Display Name </span>
-				  <span className='err'> {dispErr} </span>
-      	  <input
-					  type='text'
-        	  onChange={handleChange}
-        	  name='displayname'
-					  value={displayName}
-					  className={dispClass}/>
-				  <span className='label'> Email </span>
-				  <span className='err'> {emailErr} </span>
-      	  <input
-					  type='text'
-        	  onChange={handleChange}
-        	  name='email'
-					  className={emailClass}/>
-				  <span className='label'> Password </span>
-				  <span className='err'> {passwordErr} </span>
-      	  <input
-        	  onChange={handleChange}
-					  type='password'
-        	  name='password'
-					  className={passwordClass}/>
-				  <span className='label'> Confirm Password </span>
-				  <span className='err'> {cpassErr}</span>
-      	  <input
-        	  onChange={handleChange}
-					  type='password'
-        	  name='ccpassword'
-					  className={cpassClass}/>
-      	  <button disabled={isSubmitting}> Register </button>
-				  <Link to='/login'>
-					  <p className='link'> Have an account? </p>
-				  </Link>
-    		</form>
-  		</div>
-		</React.Fragment>
+		<div className='account-wrapper'>
+			<React.Fragment>
+				<Popup
+					open={showPopup}
+					onClose={() => setShowPopup(false)}>
+					<div className='popup'>
+						<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+						<p> {popupMessage} </p>
+					</div>
+				</Popup>
+	  		<div className='register-container'>
+				<p name='title'> Register </p>
+	    		<form
+	      		onSubmit={handleSubmit}>
+					  <span className='label'> Display Name </span>
+					  <span className='err'> {dispErr} </span>
+	      	  <input
+						  type='text'
+	        	  onChange={handleChange}
+	        	  name='displayname'
+						  value={displayName}
+						  className={dispClass}/>
+					  <span className='label'> Email </span>
+					  <span className='err'> {emailErr} </span>
+	      	  <input
+						  type='text'
+	        	  onChange={handleChange}
+	        	  name='email'
+						  className={emailClass}/>
+					  <span className='label'> Password </span>
+					  <span className='err'> {passwordErr} </span>
+	      	  <input
+	        	  onChange={handleChange}
+						  type='password'
+	        	  name='password'
+						  className={passwordClass}/>
+					  <span className='label'> Confirm Password </span>
+					  <span className='err'> {cpassErr}</span>
+	      	  <input
+	        	  onChange={handleChange}
+						  type='password'
+	        	  name='ccpassword'
+						  className={cpassClass}/>
+	      	  <button disabled={isSubmitting}> Register </button>
+					  <Link to='/login'>
+						  <p className='link'> Have an account? </p>
+					  </Link>
+	    		</form>
+	  		</div>
+			</React.Fragment>
+		</div>
 	)
 	return content
 }

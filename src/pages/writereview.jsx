@@ -9,6 +9,7 @@ const WriteReview = (props) => {
 	const [numStars, setNumStars] = useState(null)
 	const [tempStars, setTempStars] = useState(0)
 	const [review, setReview] = useState('')
+	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [showPopup, setShowPopup] = useState(false)
 	const [popupMessage, setPopupMessage] = useState('')
 
@@ -27,8 +28,10 @@ const WriteReview = (props) => {
 
 	const handleSubmit = (e) => {
     	e.preventDefault()
+			setIsSubmitting(true)
 
 		if(!validate()) {
+			setIsSubmitting(false)
 			return
 		}
 
@@ -42,8 +45,14 @@ const WriteReview = (props) => {
 			}
 		})
 		.then(res => res.json())
-		.then(data => console.log(data))
-		.catch(err => console.log(err))
+		.then(data => {
+			setPopupMessage(data.message)
+			setShowPopup(true)
+			setIsSubmitting(false)
+		})
+		.catch(err => {
+			setIsSubmitting(false)
+			console.log(err)})
   }
 
 	const validate = () => {
@@ -84,7 +93,7 @@ const WriteReview = (props) => {
         	</textarea>
       	</React.Fragment>
     		<br/>
-      	<button className='post_button' onClick={handleSubmit}> Post Review </button>
+      	<button className='post_button' disabled={isSubmitting} onClick={handleSubmit}> Post Review </button>
 			</div>
 		</React.Fragment>
 	)

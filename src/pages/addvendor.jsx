@@ -55,12 +55,14 @@ const AddVendor = props => {
 				console.log(data)
 				setShowPopup(true)
 				setPopupMessage(data.message)
+				setIsSubmitting(false)
 			})
-			.catch(err => {console.log(err)})
+			.catch(err => {
+				console.log(err)
+				setIsSubmitting(false)
+			})
 		})
 		.catch(err => console.log(err))
-
-		setIsSubmitting(false)
 	}
 
 	const validate = () => {

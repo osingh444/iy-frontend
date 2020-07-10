@@ -4,22 +4,37 @@
 	@include account-container
 	width: 320px;
 	height: 320px;
+	min-width: 320px;
+	min-height: 320px;
 }
 
 .register-container {
 	@include account-container
 	width: 320px;
 	height: 410px;
+	min-width: 320px;
+	min-height: 410px;
 }
 
 .reqreset-container {
 	@include account-container
+	min-width: 320px;
+	min-height: 190px;
 	width: 320px;
 	height: 190px;
 }
 
 .reset-container {
 	@include account-container
+	min-width: 320px;
+	min-height: 285px;
 	width: 320px;
 	height: 285px;
+}
+
+.account-wrapper {
+	display: flex;
+	justify-content: center;
+  align-items: center;
+	height: 100VH;
 }

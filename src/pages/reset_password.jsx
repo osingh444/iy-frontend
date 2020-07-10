@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Popup from '../components/popup'
+import Popup from 'reactjs-popup'
 import { Link, Redirect } from 'react-router-dom'
 import './account.scss'
 const queryString = require('query-string')
@@ -10,7 +10,8 @@ const PassReset = (props) => {
 	const [classs, setClass] = useState('row')
 	const [err, setErr] = useState('')
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const [popup, setPopup] = useState(null)
+	const [showPopup, setShowPopup] = useState(false)
+	const [popupMessage, setPopupMessage] = useState(false)
 
 	const handleChange = e => {
 		switch(e.target.name) {
@@ -24,7 +25,6 @@ const PassReset = (props) => {
 	}
 
 	const handleSubmit = e => {
-		setPopup(null)
 		e.preventDefault()
 		setErr('')
 		setClass('row')
@@ -52,14 +52,25 @@ const PassReset = (props) => {
 		})
 		.then(res => res.json)
 		.then(data => {
-			setPopup(<Popup body={data.msg}/>)
+			setPopupMessage(data.message)
+			setShowPopup(true)
+			setIsSubmitting(false)
 		})
-		.catch(err => console.log(err))
-		setIsSubmitting(false)
+		.catch(err => {
+			setIsSubmitting(false)
+			console.log(err)})
 	}
 
 	let content = (
 		<React.Fragment>
+		<Popup
+			open={showPopup}
+			onClose={() => setShowPopup(false)}>
+			<div className='popup'>
+				<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+				<p> {popupMessage} </p>
+			</div>
+		</Popup>
 		<div className='reset-container'>
 			<p name='title'> Reset Password </p>
 			<form
@@ -84,7 +95,6 @@ const PassReset = (props) => {
 				</Link>
 			</form>
 		</div>
-		{popup}
 		</React.Fragment>
 	)
 

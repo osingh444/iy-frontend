@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './styles/globals.scss'
-import App from './App';
+import App from './pages/home';
 import Product from './components/product'
 import WriteReview from './pages/writereview'
 import Vendor from './pages/vendor'
@@ -52,7 +52,7 @@ const shown = (
 	<Router>
     <div>
       <Switch>
-        <Route exact path='/' component={addLogobar(App)}/>
+        <Route exact path='/' component={App}/>
         <Route path='/products' component={Product}/>
       	<Route path='/vendor/:vendorID' component={addNavbar(Vendor)}/>
       	<Route path='/writereview' component={addLogobar(WriteReview)}/>
