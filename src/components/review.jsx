@@ -6,6 +6,7 @@ import './css/vendor.scss'
 
 const Review = props => {
 	const [isEdit, setIsEdit] = useState(false)
+	const [toUser, setToUser] = useState(null)
 
 	const handleDelete = () => {
 		fetch(process.env.REACT_APP_API_BASE + 'deletereview?rid=' + String(props.id) + '&v=' + String(props.vendor), {
@@ -37,6 +38,13 @@ const Review = props => {
 		/>
 	}
 
+	if(toUser) {
+		return <Redirect
+			to={'/user/' + String(toUser)}
+			push={true}
+		/>
+	}
+
 	let footer = (
 		<div className='review-footer'>
 			<span onClick={() => handleDelete()}> Delete </span>
@@ -53,7 +61,7 @@ const Review = props => {
 	let content = (
     <div className='review'>
 	   	<React.Fragment>
-      	<p className='review-user'> {props.user} </p>
+      	<span onClick={() => setToUser(props.reviewerID)} className='review-user'> {props.user} </span>
 				<span className='review-date'> {props.date} </span>
     	</React.Fragment>
     	<React.Fragment>

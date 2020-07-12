@@ -48,7 +48,7 @@ const PassReset = (props) => {
 			body: JSON.stringify({token: parsed.token}),
 			headers: {
         	'Content-Type': 'application/json'
-      		}
+      	}
 		})
 		.then(res => res.json)
 		.then(data => {

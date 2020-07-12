@@ -9,7 +9,7 @@ const ViewUser = ({match, location}) => {
 	const [reviews, setReviews] = useState([])
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_API_BASE + 'user/' + match.params.userID)
+		fetch(process.env.REACT_APP_API_BASE + 'userreviews?u=' + String(match.params.userID))
 		.then(res => res.json())
 		.then(data => {
 			let newrevs = []
@@ -27,7 +27,6 @@ const ViewUser = ({match, location}) => {
 	if(isLoaded) {
 		content = (
 			<div className='viewuser-container'>
-				<p> maybe add some user summary stuff </p>
 				<div>
 					<ReviewSection reviews={reviews}/>
 				</div>
