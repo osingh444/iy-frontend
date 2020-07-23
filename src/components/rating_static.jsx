@@ -21,7 +21,7 @@ const StaticRating = props => {
 
   let content = (
     <div>
-      {stars} {props.date}
+      {stars}
     </div>
   )
 

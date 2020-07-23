@@ -61,6 +61,7 @@ export function isValidIG(str) {
 	return true
 }
 
-export function unixTimeToMMDDYYYY() {
-
+export function unixTimeToMMDDYYYY(unixTime) {
+	let date = new Date(unixTime * 1000)
+	return date.toISOString().slice(0, 10)
 }

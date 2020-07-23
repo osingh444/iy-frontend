@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Redirect, Link} from 'react-router-dom'
 import StaticRating from './rating_static'
-import {getCookie} from '../utils'
+import {getCookie, unixTimeToMMDDYYYY} from '../utils'
 import './css/vendor.scss'
 
 const Review = props => {
@@ -60,20 +60,20 @@ const Review = props => {
 
 	let content = (
     <div className='review'>
-	   	<React.Fragment>
+	   	<div>
       	<span onClick={() => setToUser(props.reviewerID)} className='review-user'> {props.user} </span>
-				<span className='review-date'> {props.date} </span>
-    	</React.Fragment>
-    	<React.Fragment>
+				<span className='review-date'> {unixTimeToMMDDYYYY(props.date)} </span>
+    	</div>
+    	<div>
       	<StaticRating
         	numStars={props.numStars}/>
-    	</React.Fragment>
-    	<React.Fragment>
+    	</div>
+    	<div>
       	<p className='review-text'> {props.body} </p>
-    	</React.Fragment>
-    	<React.Fragment>
+    	</div>
+    	<div>
 				{props.reviewerID === getCookie('id')?footer:report}
-			</React.Fragment>
+			</div>
 		</div>
 	)
 

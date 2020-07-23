@@ -40,9 +40,13 @@
 .review-text {
 	display: block;
 	word-wrap: break-word;
-	white-space: pre-wrap;
 	width: 500px;
 	font-size: 14px;
+
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 .review {
