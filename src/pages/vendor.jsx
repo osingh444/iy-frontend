@@ -80,17 +80,15 @@ const Vendor = ({match, location}) => {
 					</div>
 				</Popup>
 	    	<div className='vendor-container'>
-				<div className='summary-container'>
-	        		<VendorSummary vname={match.params.vendorID}/>
-	      		</div>
-				<div className='vendor-button-container'>
-					<Link to={revlink}>
-						<button> Write a Review </button>
-					</Link>
-	          <button> Add Photo </button>
-	      		<button> Share </button>
-	      		<button> Save </button>
-				</div>
+					<div>
+						<div className='summary-container'>
+			      	<VendorSummary vname={match.params.vendorID}/>
+			      </div>
+						<div className='vendor-button-container'>
+							<Link to={revlink}>
+								<button> Write a Review </button>
+							</Link>
+						</div>
 	      		<div className='review-section-container'>
 	        		<ReviewSection
 								reviews={reviews}
@@ -99,6 +97,7 @@ const Vendor = ({match, location}) => {
 								setReportID={setReportID}
 								setReviewerID={setReviewerID}/>
 	      		</div>
+					</div>
 				</div>
 			</React.Fragment>
 		)

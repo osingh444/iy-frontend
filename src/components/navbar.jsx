@@ -16,37 +16,51 @@ const NavBar = props => {
 	}, [])
 
 	const handleLogout = () => {
-		document.cookie = "token2=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+		document.cookie = "id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 		document.cookie = "token_set=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
 	}
 
 	let content
 	if(isAuth) {
 		content = (
-			<div className='navbar-container'>
-      			<img src='../../public/favicon.icon'/>
-      			<Search/>
-				<div className='button-container'>
-					<Link to='/'>
-      					<button onClick={handleLogout}> Logout </button>
-					</Link>
+			<div className='page-header'>
+				<div className='navbar-container'>
+					<div className='navbar-item'>
+	      		<img src='../../public/favicon.icon'/>
+					</div>
+				<div>
+	      	<Search/>
 				</div>
-    		</div>
+				<div className='navbar-item'>
+					<div className='button-container'>
+						<Link to='/'>
+		      		<button onClick={handleLogout}> Logout </button>
+						</Link>
+					</div>
+				</div>
+	    	</div>
+			</div>
 		)
 	} else {
 		content = (
+			<div className='page-header'>
 	    	<div className='navbar-container'>
+					<div className='navbar-item'>
       			<img src='../../public/favicon.icon'/>
-      			<Search/>
-				<div className='button-container'>
-					<Link to="/login">
-      					<button> Login </button>
-					</Link>
-					<Link to="/register">
-      					<button> Sign Up </button>
-					</Link>
+					</div>
+      	<Search/>
+				<div className='navbar-item'>
+					<div className='button-container'>
+						<Link to="/login">
+	      			<button> Login </button>
+						</Link>
+						<Link to="/register">
+	      			<button> Sign Up </button>
+						</Link>
+					</div>
 				</div>
     		</div>
+			</div>
 		)
 	}
 

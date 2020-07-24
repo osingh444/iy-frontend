@@ -9,7 +9,9 @@ const VendorSummary = props => {
 
 	let content = (
     	<React.Fragment>
-      		<a target='_blank' href={ig} rel="noopener noreferrer"> {handle} </a>
+      	<a target='_blank'
+					href={ig}
+					rel="noopener noreferrer"> {handle} </a>
     	</React.Fragment>
 	)
 

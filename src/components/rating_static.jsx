@@ -7,7 +7,7 @@ const StaticRating = props => {
 
   for(let i = 0; i < 5; i++) {
     let styles = i < props.numStars ? { color: 'gold' } : { color: 'grey' }
-    styles.fontSize = '22px'
+    styles.fontSize = '18px'
     stars.push(
       <label
         className ={'static_star'}

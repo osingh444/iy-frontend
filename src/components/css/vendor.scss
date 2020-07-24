@@ -7,15 +7,13 @@
 
 .summary-container {
 	position: relative;
-	transform: translate(-125px);
-	height: 50px;
 	width: 200px;
 	text-align: left;
+	margin-bottom: 10px;
 }
 
 .vendor-button-container {
 	position: relative;
-	transform: translate(-70px, 0);
 }
 
 .vendor-button-container button {
@@ -33,16 +31,11 @@
   cursor: pointer;
 }
 
-.review-section-container {
-	transform: translate(30px, 0);
-}
-
 .review-text {
 	display: block;
 	word-wrap: break-word;
 	width: 500px;
 	font-size: 14px;
-
 	padding-left: 0px;
 	padding-right: 0px;
 	margin-left: 0px;
