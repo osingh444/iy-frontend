@@ -5,10 +5,13 @@ import Popup from 'reactjs-popup'
 import { containsBadWords } from '../utils/filter'
 const queryString = require('query-string')
 
+const MAX_FILE_SIZE = 5000000
+
 const WriteReview = (props) => {
 	const [numStars, setNumStars] = useState(null)
 	const [tempStars, setTempStars] = useState(0)
 	const [review, setReview] = useState('')
+	const [photos, setPhotos] = useState('')
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [showPopup, setShowPopup] = useState(false)
 	const [popupMessage, setPopupMessage] = useState('')
@@ -23,12 +26,39 @@ const WriteReview = (props) => {
 	}, [])
 
 	const handleChange = (e) => {
-    	setReview(e.target.value)
-  	}
+		switch (e.target.name) {
+			case 'review':
+				setReview(e.target.value)
+				break
+			case 'photo':
+				if(e.target.files.length > 3) {
+					setPopupMessage('cannot upload more than 3 files')
+					setShowPopup(true)
+					return
+				}
+				setPhotos(e.target.files)
+				break
+		}
+  }
+	const uploadPhotos = (rID) => {
+		let formData = new FormData()
+		for (var i = 0; i < photos.length; i++) {
+			formData.append('files[]', photos[i])
+		}
+
+		fetch(process.env.REACT_APP_API_BASE + 'addreviewphoto?rid=' + rID, {
+			method: 'POST',
+			body: formData,
+			credentials: 'include',
+		})
+		.then(res => res.json())
+		.then(data => console.log(data))
+		.catch(err => console.log(err))
+	}
 
 	const handleSubmit = (e) => {
-    	e.preventDefault()
-			setIsSubmitting(true)
+  	e.preventDefault()
+		setIsSubmitting(true)
 
 		if(!validate()) {
 			setIsSubmitting(false)
@@ -46,9 +76,13 @@ const WriteReview = (props) => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			setPopupMessage(data.message)
-			setShowPopup(true)
-			setIsSubmitting(false)
+			if(data.status === 201) {
+				uploadPhotos(data.rID)
+			} else {
+				setPopupMessage(data.message)
+				setShowPopup(true)
+				setIsSubmitting(false)
+			}
 		})
 		.catch(err => {
 			setIsSubmitting(false)
@@ -60,6 +94,13 @@ const WriteReview = (props) => {
 			setShowPopup(true)
 			setPopupMessage('Review contains inappropriate language, please modify your review')
 			return false
+		}
+		for (let i = 0; i < photos.length; i++) {
+			if (photos[i].size > MAX_FILE_SIZE) {
+				setShowPopup(true)
+				setPopupMessage(photos[i].name + ' exceeds maximum size of 5mb')
+				return false
+			}
 		}
 		return true
 	}
@@ -92,6 +133,16 @@ const WriteReview = (props) => {
         		style={{resize: 'none', width: '80%', height: '5%'}}>
         	</textarea>
       	</React.Fragment>
+				<br/>
+				<label htmlFor="photo">Related Photos</label>
+				<br/>
+        <input
+          id="photo"
+          name="photo"
+          type="file"
+          accept="image/*"
+					onChange={handleChange}
+					multiple/>
     		<br/>
       	<button className='post_button' disabled={isSubmitting} onClick={handleSubmit}> Post Review </button>
 			</div>

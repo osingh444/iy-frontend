@@ -62,7 +62,7 @@ const Review = props => {
     <div className='review'>
 	   	<div>
       	<span onClick={() => setToUser(props.reviewerID)} className='review-user'> {props.user} </span>
-				<span className='review-date'> {unixTimeToMMDDYYYY(props.date)} </span>
+				<span className='review-date'> {String(props.date).slice(0, 10)} </span>
     	</div>
     	<div>
       	<StaticRating

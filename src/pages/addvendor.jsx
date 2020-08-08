@@ -30,22 +30,16 @@ const AddVendor = props => {
 					setErr(' - no account found')
 					setIpClass('row-err')
 					setBody('f')
+					setIsSubmitting(false)
 				}
 				throw 'finish'
 			}
 			return res.text()
 		})
 		.then(data => {
-			setBody(data)
-			if(body === null) {
-				setErr(' - connection error')
-				setIpClass('row-err')
-				return
-			}
-
 			fetch(process.env.REACT_APP_API_BASE + 'addvendor', {
 				method: 'POST',
-				body: JSON.stringify({IGName: vendorName, Page: body}),
+				body: JSON.stringify({IGName: vendorName, Page: data}),
 				headers: {
 					'Content-Type': 'application/json'
 				}
