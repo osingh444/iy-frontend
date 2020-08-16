@@ -35,7 +35,7 @@ const Vendor = ({match, location}) => {
 		.then(setIsLoaded(true))
 		.catch(err => console.log(err))
 	}, [])
-
+	console.log(reviews)
 	const sendReport = (e) => {
 		e.preventDefault()
 

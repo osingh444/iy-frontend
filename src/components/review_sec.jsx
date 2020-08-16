@@ -4,16 +4,16 @@ import Review from './review'
 const ReviewSection = props => {
 	let content = (
     	<React.Fragment>
-      		{props.reviews.map((review) =>
+      		{props.reviews.map((r) =>
         		<Review
-          			key={review.ReviewID}
-								id={review.ReviewID}
-          			body={review.ReviewText}
-          			user={review.Reviewer}
-								numStars={review.NumStars}
-								date={review.CreatedAt}
+          			key={r.Review.ReviewID}
+								id={r.Review.ReviewID}
+          			body={r.Review.ReviewText}
+          			user={r.Review.Reviewer}
+								numStars={r.Review.NumStars}
+								date={r.Review.CreatedAt}
 								vendor={props.vendor}
-								reviewerID={review.ReviewerID}
+								reviewerID={r.Review.ReviewerID}
 								setShowPopup={props.setShowPopup}
 								setReportID={props.setReportID}
 								setReviewerID={props.setReviewerID}

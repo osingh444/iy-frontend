@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 import './account.scss'
 const queryString = require('query-string')
 
-const PassReset = (props) => {
+const PassReset = ({match, location}) => {
 	const [password, setPassword] = useState('')
 	const [cPassword, setCPassword] = useState('')
 	const [classs, setClass] = useState('row')
@@ -41,7 +41,7 @@ const PassReset = (props) => {
 		}
 
 		//add password strength check and indicator
-		const parsed = queryString.parse(props.location.search)
+		const parsed = queryString.parse(location.search)
 		setIsSubmitting(true)
 		fetch(process.env.REACT_APP_API_BASE + 'reset', {
 			method: 'POST',

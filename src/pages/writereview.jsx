@@ -40,13 +40,13 @@ const WriteReview = (props) => {
 				break
 		}
   }
-	const uploadPhotos = (rID) => {
+	const uploadPhotos = (rID, vendor) => {
 		let formData = new FormData()
 		for (var i = 0; i < photos.length; i++) {
 			formData.append('files[]', photos[i])
 		}
 
-		fetch(process.env.REACT_APP_API_BASE + 'addreviewphoto?rid=' + rID, {
+		fetch(process.env.REACT_APP_API_BASE + 'addreviewphoto?rid=' + rID + '&v=' + vendor, {
 			method: 'POST',
 			body: formData,
 			credentials: 'include',
@@ -77,7 +77,7 @@ const WriteReview = (props) => {
 		.then(res => res.json())
 		.then(data => {
 			if(data.status === 201) {
-				uploadPhotos(data.rID)
+				uploadPhotos(data.rID, String(parsed.v))
 			} else {
 				setPopupMessage(data.message)
 				setShowPopup(true)
