@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Popup from 'reactjs-popup'
 import reportReasons from '../data/report_reasons.json'
 import '../components/css/vendor.scss'
+const queryString = require('query-string')
 
 const Vendor = ({match, location}) => {
 
@@ -18,7 +19,10 @@ const Vendor = ({match, location}) => {
 	const [reviewerID, setReviewerID] = useState(null)
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID))
+		const parsed = queryString.parse(location.search)
+		let offset = '&offset='
+		parsed.offset?offset+=parsed.offset:offset+='0'
+		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID) + offset)
 		.then(res => res.json())
 		.then(data => {
 			console.log(data)
@@ -36,6 +40,7 @@ const Vendor = ({match, location}) => {
 		.catch(err => console.log(err))
 	}, [])
 	console.log(reviews)
+
 	const sendReport = (e) => {
 		e.preventDefault()
 

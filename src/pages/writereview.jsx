@@ -7,7 +7,7 @@ const queryString = require('query-string')
 
 const MAX_FILE_SIZE = 5000000
 
-const WriteReview = (props) => {
+const WriteReview = ({location}) => {
 	const [numStars, setNumStars] = useState(null)
 	const [tempStars, setTempStars] = useState(0)
 	const [review, setReview] = useState('')
@@ -17,11 +17,11 @@ const WriteReview = (props) => {
 	const [popupMessage, setPopupMessage] = useState('')
 
 	useEffect(() => {
-		if(props.location.state && props.location.state.text) {
-			setReview(props.location.state.text)
+		if(location.state && location.state.text) {
+			setReview(location.state.text)
 		}
-		if(props.location.state && props.location.state.numStars) {
-			setNumStars(props.location.state.numStars)
+		if(location.state && location.state.numStars) {
+			setNumStars(location.state.numStars)
 		}
 	}, [])
 
@@ -65,7 +65,7 @@ const WriteReview = (props) => {
 			return
 		}
 
-		const parsed = queryString.parse(props.location.search)
+		const parsed = queryString.parse(location.search)
 		fetch(process.env.REACT_APP_API_BASE + 'createreview', {
 			method: 'POST',
 			body: JSON.stringify({numStars: numStars, reviewText: review, vendorName: parsed.v}),
