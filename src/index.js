@@ -54,7 +54,7 @@ const shown = (
       <Switch>
         <Route exact path='/' component={App}/>
         <Route path='/products' component={Product}/>
-      	<Route path='/vendor/:vendorID' component={addNavbar(Vendor)}/>
+      	<Route path='/vendor/:vendorID/:page?' component={addNavbar(Vendor)}/>
       	<Route path='/writereview' component={addLogobar(WriteReview)}/>
       	<Route path='/login' component={addLogobar(Login)}/>
     		<Route path='/register' component={Register}/>
@@ -68,6 +68,10 @@ const shown = (
     </div>
 	</Router>
 )
+
+window.addEventListener('popstate', function(event) {
+	window.location.reload()
+})
 
 ReactDOM.render(shown, document.getElementById('root'));
 

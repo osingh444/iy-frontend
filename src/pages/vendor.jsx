@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import ReviewSection from '../components/review_sec'
 import VendorSummary from '../components/vendorsummary'
+import PageCounter from '../components/pagecounter'
 import { Link } from 'react-router-dom'
 import Popup from 'reactjs-popup'
 import reportReasons from '../data/report_reasons.json'
 import '../components/css/vendor.scss'
 const queryString = require('query-string')
+
+const MAX_PAGE_SIZE = 5
 
 const Vendor = ({match, location}) => {
 
@@ -17,12 +20,18 @@ const Vendor = ({match, location}) => {
 	const [reason, setReason] = useState(null)
 	const [reportID, setReportID] = useState(null)
 	const [reviewerID, setReviewerID] = useState(null)
+	const [vendor, setVendor] = useState(null)
+	const [count, setCount] = useState(0)
+	const [redirect, setRedirect] = useState(null)
 
 	useEffect(() => {
+
 		const parsed = queryString.parse(location.search)
-		let offset = '&offset='
-		parsed.offset?offset+=parsed.offset:offset+='0'
-		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID) + offset)
+		setVendor(match.params.vendorID)
+
+		let page = match.params.page?match.params.page:0
+		console.log(match.params.page);
+		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID) + '&offset=' + String(page * MAX_PAGE_SIZE))
 		.then(res => res.json())
 		.then(data => {
 			console.log(data)
@@ -35,6 +44,7 @@ const Vendor = ({match, location}) => {
 				newrevs.push(data.reviews[i])
 			}
 			setReviews(newrevs)
+			setCount(data.count)
 		})
 		.then(setIsLoaded(true))
 		.catch(err => console.log(err))
@@ -102,6 +112,9 @@ const Vendor = ({match, location}) => {
 								setReportID={setReportID}
 								setReviewerID={setReviewerID}/>
 	      		</div>
+						<div className='footer'>
+							<PageCounter count={count} size={MAX_PAGE_SIZE} vendor={vendor} setRedirect={setRedirect}/>
+						</div>
 					</div>
 				</div>
 			</React.Fragment>
@@ -112,6 +125,12 @@ const Vendor = ({match, location}) => {
 		)
 	}
 
+	if(redirect) {
+		console.log("asdf");
+		content = redirect
+		window.location.reload()
+	}
+	console.log(redirect)
 	if(!exists) {
 		content = (
 			<div className='dne-container'>
