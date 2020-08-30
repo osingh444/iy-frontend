@@ -4,7 +4,7 @@ import StaticRating from './rating_static'
 import {getCookie, unixTimeToMMDDYYYY} from '../utils'
 import './css/vendor.scss'
 
-const Review = props => {
+const Review = (props) => {
 	const [isEdit, setIsEdit] = useState(false)
 	const [toUser, setToUser] = useState(null)
 
@@ -57,6 +57,23 @@ const Review = props => {
 			<span onClick={() => handleReport()}> Report </span>
 		</div>
 	)
+	console.log(props.media)
+
+	const images = [
+  {
+    original: props.media.S3URL1,
+  },
+  {
+    original: props.media.S3URL2,
+  },
+  {
+    original: props.media.S3URL3,
+  },
+];
+
+	let gallery = (
+		null
+	)
 
 	let content = (
     <div className='review'>
@@ -71,7 +88,10 @@ const Review = props => {
     	<div>
       	<p className='review-text'> {props.body} </p>
     	</div>
-    	<div>
+			<div>
+				{gallery}
+			</div>
+    	<div style={{height: "500px", width: "500px"}}>
 				{props.reviewerID === getCookie('id')?footer:report}
 			</div>
 		</div>

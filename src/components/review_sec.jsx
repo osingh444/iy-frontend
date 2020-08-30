@@ -13,6 +13,7 @@ const ReviewSection = props => {
 								numStars={r.Review.NumStars}
 								date={r.Review.CreatedAt}
 								vendor={props.vendor}
+								media={r.Media}
 								reviewerID={r.Review.ReviewerID}
 								setShowPopup={props.setShowPopup}
 								setReportID={props.setReportID}

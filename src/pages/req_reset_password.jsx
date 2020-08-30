@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './account.scss'
 import { Link } from 'react-router-dom'
 import Popup from 'reactjs-popup'
+import popupStyles from '../styles/popup'
 import { isValidEmail } from '../utils'
 
 const ReqReset = (location) => {
@@ -70,6 +71,7 @@ const ReqReset = (location) => {
 	let content = (
 		<React.Fragment>
 		<Popup
+			contentStyle={popupStyles}
 			open={showPopup}
 			onClose={() => setShowPopup(false)}>
 			<div className='popup'>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Popup from 'reactjs-popup'
+import popupStyles from '../styles/popup'
 import { isValidEmail } from '../utils'
 import { containsBadWords } from '../utils/filter'
 import './account.scss'
@@ -148,6 +149,7 @@ const Register = () => {
 		<div className='account-wrapper'>
 			<React.Fragment>
 				<Popup
+					contentStyle={popupStyles}
 					open={showPopup}
 					onClose={() => setShowPopup(false)}>
 					<div className='popup'>

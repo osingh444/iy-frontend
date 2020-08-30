@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import DynamicRating from '../components/rating_dynamic'
 import RatingContext from '../contexts/ratingcontext'
 import Popup from 'reactjs-popup'
+import popupStyles from '../styles/popup'
 import { containsBadWords } from '../utils/filter'
 const queryString = require('query-string')
 
@@ -52,7 +53,17 @@ const WriteReview = ({location}) => {
 			credentials: 'include',
 		})
 		.then(res => res.json())
-		.then(data => console.log(data))
+		.then(data => {
+			if(data.status === 201) {
+				setPopupMessage('Review successfully uploaded')
+				setShowPopup(true)
+				setIsSubmitting(false)
+			} else {
+				setPopupMessage(data.message)
+				setShowPopup(true)
+				setIsSubmitting(false)
+			}
+		})
 		.catch(err => console.log(err))
 	}
 
@@ -108,6 +119,7 @@ const WriteReview = ({location}) => {
 	let content = (
 		<React.Fragment>
 			<Popup
+				contentStyle={popupStyles}
 				open={showPopup}
 				onClose={() => setShowPopup(false)}>
 				<div className='popup'>

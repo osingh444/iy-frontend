@@ -1,0 +1,17 @@
+.popup {
+
+	.close-button {
+		cursor: pointer;
+    position: absolute;
+    display: block;
+		overflow: visible;
+    padding: 0px 3px 2px 4px;
+    line-height: 16px;
+    right: -10px;
+    top: -28px;
+    font-size: 15px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+	}
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Popup from 'reactjs-popup'
+import popupStyles from '../styles/popup'
 import { isValidIG } from '../utils'
 import '../components/css/vendor.scss'
 
@@ -75,6 +76,7 @@ const AddVendor = props => {
 	let content = (
 		<React.Fragment>
 			<Popup
+				contentStyle={popupStyles}
 				open={showPopup}
 				onClose={() => setShowPopup(false)}>
 				<div className='popup'>

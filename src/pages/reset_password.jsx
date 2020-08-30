@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Popup from 'reactjs-popup'
+import popupStyles from '../styles/popup'
 import { Link, Redirect } from 'react-router-dom'
 import './account.scss'
 const queryString = require('query-string')
@@ -64,6 +65,7 @@ const PassReset = ({match, location}) => {
 	let content = (
 		<React.Fragment>
 		<Popup
+			contentStyle={popupStyles}
 			open={showPopup}
 			onClose={() => setShowPopup(false)}>
 			<div className='popup'>

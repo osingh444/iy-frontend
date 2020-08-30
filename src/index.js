@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './styles/globals.scss'
+import './styles/popup.scss'
 import App from './pages/home';
 import Product from './components/product'
 import WriteReview from './pages/writereview'
@@ -14,10 +15,10 @@ import AddVendor from './pages/addvendor'
 import PassReset from './pages/reset_password'
 import ViewUser from './pages/view_user'
 import ReqReset from './pages/req_reset_password'
+import ManageAccount from './pages/manage_account'
 import DoesntExist from './pages/doesntexist'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import Popup from './components/popup'
 
 const addNavbar = (Component) => {
 
@@ -62,7 +63,7 @@ const shown = (
 		    <Route path='/reset' component={addLogobar(PassReset)}/>
 				<Route path='/user/:userID' component={addNavbar(ViewUser)}/>
 				<Route path='/reqreset' component={addLogobar(ReqReset)}/>
-				<Route path='/testpopup' component={Popup}/>
+				<Route path='/account' component={ManageAccount}/>
 				<Route path='*' component={addLogobar(DoesntExist)}/>
       </Switch>
     </div>

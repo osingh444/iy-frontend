@@ -4,6 +4,7 @@ import VendorSummary from '../components/vendorsummary'
 import PageCounter from '../components/pagecounter'
 import { Link } from 'react-router-dom'
 import Popup from 'reactjs-popup'
+import popupStyles from '../styles/popup'
 import reportReasons from '../data/report_reasons.json'
 import '../components/css/vendor.scss'
 const queryString = require('query-string')
@@ -21,6 +22,7 @@ const Vendor = ({match, location}) => {
 	const [reportID, setReportID] = useState(null)
 	const [reviewerID, setReviewerID] = useState(null)
 	const [vendor, setVendor] = useState(null)
+	const [page, setPage] = useState(0)
 	const [count, setCount] = useState(0)
 	const [redirect, setRedirect] = useState(null)
 
@@ -30,7 +32,9 @@ const Vendor = ({match, location}) => {
 		setVendor(match.params.vendorID)
 
 		let page = match.params.page?match.params.page:0
-		console.log(match.params.page);
+		//for the pagination
+		setPage(Number(page))
+
 		fetch(process.env.REACT_APP_API_BASE + 'vendor?v=' + String(match.params.vendorID) + '&offset=' + String(page * MAX_PAGE_SIZE))
 		.then(res => res.json())
 		.then(data => {
@@ -49,7 +53,6 @@ const Vendor = ({match, location}) => {
 		.then(setIsLoaded(true))
 		.catch(err => console.log(err))
 	}, [])
-	console.log(reviews)
 
 	const sendReport = (e) => {
 		e.preventDefault()
@@ -75,6 +78,7 @@ const Vendor = ({match, location}) => {
 		content = (
 			<React.Fragment>
 				<Popup
+					contentStyle={popupStyles}
 					open={showPopup}
 					onClose={() => setShowPopup(false)}>
 					<div className='popup'>
@@ -113,7 +117,7 @@ const Vendor = ({match, location}) => {
 								setReviewerID={setReviewerID}/>
 	      		</div>
 						<div className='footer'>
-							<PageCounter count={count} size={MAX_PAGE_SIZE} vendor={vendor} setRedirect={setRedirect}/>
+							<PageCounter count={count} size={MAX_PAGE_SIZE} vendor={vendor} setRedirect={setRedirect} page={page}/>
 						</div>
 					</div>
 				</div>
@@ -126,7 +130,6 @@ const Vendor = ({match, location}) => {
 	}
 
 	if(redirect) {
-		console.log("asdf");
 		content = redirect
 		window.location.reload()
 	}

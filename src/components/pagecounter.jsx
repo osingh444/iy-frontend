@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
+import './css/pagecounter.scss'
 
-const PageCounter = ({count, size, vendor, setRedirect}) => {
+const PageCounter = ({count, size, vendor, setRedirect, page}) => {
 	const PageItem = ({index, offset, setRedirect}) => {
 		const handleOnClick = () => {
 			setRedirect(<Redirect to={'/vendor/' + vendor + '/' + String(index)} push={true}/>)
@@ -9,7 +10,8 @@ const PageCounter = ({count, size, vendor, setRedirect}) => {
 
 		return (
 			<span
-				onClick={handleOnClick}
+				className={page === index?'page-counter-curr-item':'page-counter-item'}
+				onClick={page === index?null:handleOnClick}
 			> {index + 1} </span>
 		)
 	}
@@ -33,7 +35,7 @@ const PageCounter = ({count, size, vendor, setRedirect}) => {
 	}
 
 	return (
-		<div>
+		<div className='page-counter'>
 			{links}
 		</div>
 	)
