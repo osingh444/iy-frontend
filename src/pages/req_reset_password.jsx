@@ -21,13 +21,7 @@ const ReqReset = (location) => {
 		}
 		//make api call
 		setIsSubmitting(true)
-		fetch(process.env.REACT_APP_API_BASE + 'reqreset', {
-			method: 'POST',
-			body: JSON.stringify({email: email}),
-			headers: {
-        	'Content-Type': 'application/json'
-      		}
-		})
+		fetch(process.env.REACT_APP_API_BASE + 'reqreset?email=' + email)
 		.then(res => res.json())
 		.then(data => {
 			setShowPopup(true)

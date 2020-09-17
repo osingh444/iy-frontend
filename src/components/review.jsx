@@ -1,12 +1,31 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Redirect, Link} from 'react-router-dom'
 import StaticRating from './rating_static'
+import AwesomeSlider from 'react-awesome-slider';
+import 'react-awesome-slider/dist/styles.css';
 import {getCookie, unixTimeToMMDDYYYY} from '../utils'
 import './css/vendor.scss'
 
 const Review = (props) => {
 	const [isEdit, setIsEdit] = useState(false)
 	const [toUser, setToUser] = useState(null)
+	const [media, setMedia] = useState([])
+
+	useEffect(() => {
+		let newMedia = []
+		if (props.media.S3URL1 !== '') {
+			newMedia.push(props.media.S3URL1)
+
+			if (props.media.S3URL2 !== '') {
+				newMedia.push(props.media.S3URL2)
+
+				if (props.media.S3URL3 !== '') {
+					newMedia.push(props.media.S3URL3)
+				}
+			}
+		}
+		setMedia(newMedia)
+	}, [])
 
 	const handleDelete = () => {
 		fetch(process.env.REACT_APP_API_BASE + 'deletereview?rid=' + String(props.id) + '&v=' + String(props.vendor), {
@@ -59,20 +78,16 @@ const Review = (props) => {
 	)
 	console.log(props.media)
 
-	const images = [
-  {
-    original: props.media.S3URL1,
-  },
-  {
-    original: props.media.S3URL2,
-  },
-  {
-    original: props.media.S3URL3,
-  },
-];
-
 	let gallery = (
-		null
+		media.length===0?null:
+		<div className='slider-container'>
+			<AwesomeSlider transitionDelay={0}>
+				{media.map((url) =>
+					<div className='image-container'>
+						<img src={url}/>
+					</div>)}
+			</AwesomeSlider>
+		</div>
 	)
 
 	let content = (
@@ -91,7 +106,7 @@ const Review = (props) => {
 			<div>
 				{gallery}
 			</div>
-    	<div style={{height: "500px", width: "500px"}}>
+    	<div>
 				{props.reviewerID === getCookie('id')?footer:report}
 			</div>
 		</div>
