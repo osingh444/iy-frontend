@@ -1,12 +1,13 @@
 import React from 'react'
 import './css/navbar.scss'
+import logo from '../data/logov4.png'
 
 const LogoBar = () => {
 
 	let content = (
 		<div className='page-header'>
     	<div className='logobar-container'>
-      		<img src='../../public/favicon.icon'/>
+      		<img src={logo}/>
     	</div>
 		</div>
 	)

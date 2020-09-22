@@ -3,7 +3,6 @@ import DynamicRating from '../components/rating_dynamic'
 import RatingContext from '../contexts/ratingcontext'
 import Popup from 'reactjs-popup'
 import popupStyles from '../styles/popup'
-import { containsBadWords } from '../utils/filter'
 const queryString = require('query-string')
 
 const MAX_FILE_SIZE = 5000000
@@ -101,11 +100,6 @@ const WriteReview = ({location}) => {
   }
 
 	const validate = () => {
-		if(containsBadWords(review)) {
-			setShowPopup(true)
-			setPopupMessage('Review contains inappropriate language, please modify your review')
-			return false
-		}
 		for (let i = 0; i < photos.length; i++) {
 			if (photos[i].size > MAX_FILE_SIZE) {
 				setShowPopup(true)

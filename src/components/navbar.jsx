@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Search from './search'
 import { Link, Redirect } from 'react-router-dom'
 import { getCookie } from '../utils'
+import logo from '../data/logov4.png'
 import './css/navbar.scss'
 
 const NavBar = props => {
@@ -26,7 +27,7 @@ const NavBar = props => {
 			<div className='page-header'>
 				<div className='navbar-container'>
 					<div className='navbar-item'>
-	      		<img src='../../public/favicon.icon'/>
+	      		<img src={logo}/>
 					</div>
 				<div>
 	      	<Search/>
@@ -46,7 +47,7 @@ const NavBar = props => {
 			<div className='page-header'>
 	    	<div className='navbar-container'>
 					<div className='navbar-item'>
-      			<img src='../../public/favicon.icon'/>
+      			<img src={logo}/>
 					</div>
       	<Search/>
 				<div className='navbar-item'>
