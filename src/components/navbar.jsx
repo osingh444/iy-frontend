@@ -47,7 +47,9 @@ const NavBar = props => {
 			<div className='page-header'>
 	    	<div className='navbar-container'>
 					<div className='navbar-item'>
-      			<img src={logo}/>
+						<Link to={'/'}>
+      				<img src={logo}/>
+						</Link>
 					</div>
       	<Search/>
 				<div className='navbar-item'>

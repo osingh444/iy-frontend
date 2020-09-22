@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { Link } from 'react-router-dom'
 import './css/search.scss'
 
 const Search = () => {
+	const [vendor, setVendor] = useState('')
 
 	let content = (
     <div className='search-container'>
@@ -10,10 +12,12 @@ const Search = () => {
 					name='search'
 					placeholder='Search'
 					type='text'
-					className='search'/>
+					className='search'
+					onChange={(e) => setVendor(e.target.value)}/>
       </div>
-      <button
-        onClick={() => alert('searched')}> &#x1F50E; </button>
+			<Link to={'/vendor/' + vendor}>
+      	<button style={{'height': '30px'}}> &#x1F50E; </button>
+			</Link>
 		</div>
 	)
 

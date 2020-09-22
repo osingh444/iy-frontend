@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from '../components/search'
 import LogoBar from '../components/logobar'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import logo from '../data/biglogov4.png'
 import './home.scss';
 
@@ -24,7 +24,7 @@ function App() {
 						<img src={logo}/>
 					</div>
 					<div className='text-container'>
-						<p> Find information on social media vendors </p>
+						<p> Find information on Instagram vendors </p>
 						<p> Make informed purchases </p>
 					</div>
 					<Search/>
