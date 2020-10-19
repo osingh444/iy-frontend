@@ -8,9 +8,11 @@ const LogoBar = () => {
 	let content = (
 		<div className='page-header'>
     	<div className='logobar-container'>
-				<Link to={'/'}>
-      		<img src={logo}/>
-				</Link>
+				<div className='navbar-item'>
+					<Link to={'/'}>
+	      		<img src={logo}/>
+					</Link>
+				</div>
     	</div>
 		</div>
 	)

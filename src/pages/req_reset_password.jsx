@@ -63,34 +63,36 @@ const ReqReset = (location) => {
 	}
 
 	let content = (
-		<React.Fragment>
-		<Popup
-			contentStyle={popupStyles}
-			open={showPopup}
-			onClose={() => setShowPopup(false)}>
-			<div className='popup'>
-				<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
-				<p> {popupMessage} </p>
+		<div className='account-wrapper'>
+			<React.Fragment>
+			<Popup
+				contentStyle={popupStyles}
+				open={showPopup}
+				onClose={() => setShowPopup(false)}>
+				<div className='popup'>
+					<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+					<p> {popupMessage} </p>
+				</div>
+			</Popup>
+			<div className='reqreset-container'>
+				<p name='title'> Password Recovery </p>
+				<form
+					onSubmit={handleSubmit}>
+					<span className='label'> Email </span>
+					<span className='err'> {emailErr} </span>
+					<input
+						type='text'
+	          name='email'
+						className={emailClass}
+	          onChange={(handleChange)}/>
+					<button disabled={isSubmitting}> Submit </button>
+					<Link to='/login'>
+						<p className='link'> Have an Account? </p>
+					</Link>
+				</form>
 			</div>
-		</Popup>
-		<div className='reqreset-container'>
-			<p name='title'> Password Recovery </p>
-			<form
-				onSubmit={handleSubmit}>
-				<span className='label'> Email </span>
-				<span className='err'> {emailErr} </span>
-				<input
-					type='text'
-          			name='email'
-					className={emailClass}
-          			onChange={(handleChange)}/>
-				<button disabled={isSubmitting}> Submit </button>
-				<Link to='/login'>
-					<p className='link'> Have an Account? </p>
-				</Link>
-			</form>
+			</React.Fragment>
 		</div>
-		</React.Fragment>
 	)
 	return content
 }

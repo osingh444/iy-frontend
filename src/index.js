@@ -58,7 +58,7 @@ const shown = (
       	<Route path='/vendor/:vendorID/:page?' component={addNavbar(Vendor)}/>
       	<Route path='/writereview' component={addLogobar(WriteReview)}/>
       	<Route path='/login' component={addLogobar(Login)}/>
-    		<Route path='/register' component={Register}/>
+    		<Route path='/register' component={addLogobar(Register)}/>
     		<Route path='/addvendor' component={addNavbar(AddVendor)}/>
 		    <Route path='/reset' component={addLogobar(PassReset)}/>
 				<Route path='/user/:userID' component={addNavbar(ViewUser)}/>

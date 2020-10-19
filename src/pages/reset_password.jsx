@@ -63,41 +63,43 @@ const PassReset = ({match, location}) => {
 	}
 
 	let content = (
-		<React.Fragment>
-		<Popup
-			contentStyle={popupStyles}
-			open={showPopup}
-			onClose={() => setShowPopup(false)}>
-			<div className='popup'>
-				<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
-				<p> {popupMessage} </p>
+		<div className='account-wrapper'>
+			<React.Fragment>
+			<Popup
+				contentStyle={popupStyles}
+				open={showPopup}
+				onClose={() => setShowPopup(false)}>
+				<div className='popup'>
+					<p className='close-button' onClick={() => setShowPopup(false)}> &times; </p>
+					<p> {popupMessage} </p>
+				</div>
+			</Popup>
+			<div className='reset-container'>
+				<p name='title'> Reset Password </p>
+				<form
+					onSubmit={handleSubmit}>
+					<span className='label'> New Password </span>
+					<span className='err'> {err} </span>
+					<input
+						type='password'
+						name='password'
+						className={classs}
+						onChange={handleChange}/>
+					<span className='label'> Confirm Password </span>
+					<span className='err'> {err} </span>
+					<input
+						type='password'
+						name='ccpassword'
+						className={classs}
+						onChange={handleChange}/>
+					<button disabled={isSubmitting}> Submit </button>
+					<Link to='/register'>
+						<p className='link'> Login Here </p>
+					</Link>
+				</form>
 			</div>
-		</Popup>
-		<div className='reset-container'>
-			<p name='title'> Reset Password </p>
-			<form
-				onSubmit={handleSubmit}>
-				<span className='label'> New Password </span>
-				<span className='err'> {err} </span>
-				<input
-					type='password'
-					name='password'
-					className={classs}
-					onChange={handleChange}/>
-				<span className='label'> Confirm Password </span>
-				<span className='err'> {err} </span>
-				<input
-					type='password'
-					name='ccpassword'
-					className={classs}
-					onChange={handleChange}/>
-				<button disabled={isSubmitting}> Submit </button>
-				<Link to='/register'>
-					<p className='link'> Login Here </p>
-				</Link>
-			</form>
+			</React.Fragment>
 		</div>
-		</React.Fragment>
 	)
 
 	return content

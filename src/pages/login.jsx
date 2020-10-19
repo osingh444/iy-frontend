@@ -103,31 +103,33 @@ const Login = () => {
 	}
 
 	let	content = (
-	  <div className='login-container'>
-		  <p name='title'> Sign-In </p>
-	    <form onSubmit={handleSubmit}>
-			  <span className='label'> Email </span>
-			  <span className='err'>{emailErr} </span>
-	      <input
-	        type='text'
-	        name='email'
-	        onChange={handleChange}
-	        className={emailClass}/>
-			  <span className='label'> Password </span>
-			  <span className='err'> {passwordErr} </span>
-	      <input
-	        type='password'
-	        name='password'
-	        onChange={handleChange}
-	        className={passwordClass}/>
-				<Link to='reqreset'>
-					<p className='link'> Forgot Password? </p>
-				</Link>
-	      <button disabled={isSubmitting}> Login </button>
-				<Link to='/register'>
-				  <p className='link'> Not Registered? </p>
-				</Link>
-	    </form>
+		<div className='account-wrapper'>
+		  <div className='login-container'>
+			  <p name='title'> Sign-In </p>
+		    <form onSubmit={handleSubmit}>
+				  <span className='label'> Email </span>
+				  <span className='err'>{emailErr} </span>
+		      <input
+		        type='text'
+		        name='email'
+		        onChange={handleChange}
+		        className={emailClass}/>
+				  <span className='label'> Password </span>
+				  <span className='err'> {passwordErr} </span>
+		      <input
+		        type='password'
+		        name='password'
+		        onChange={handleChange}
+		        className={passwordClass}/>
+					<Link to='reqreset'>
+						<p className='link'> Forgot Password? </p>
+					</Link>
+		      <button disabled={isSubmitting}> Login </button>
+					<Link to='/register'>
+					  <p className='link'> Not Registered? </p>
+					</Link>
+		    </form>
+		 </div>
 	 </div>
 	)
 
